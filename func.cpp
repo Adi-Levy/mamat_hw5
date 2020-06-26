@@ -7,7 +7,7 @@
 
 func::func() : maxVal_(0), minVal_(0) {}
 
-func::func(func& f) : maxVal_(f.maxVal_), minVal_(f.minVal_) {
+func::func(const func& f) : maxVal_(f.maxVal_), minVal_(f.minVal_) {
     fmap_ = f.fmap_;
 }
 

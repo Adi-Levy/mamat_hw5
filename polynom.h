@@ -9,7 +9,7 @@ using namespace std;
 class polynom : public func {
 public:
     polynom(int order, int* coefs);
-    polynom(polynom& p);
+    polynom(const polynom& p);
     ~polynom();
     void printcoefs(ostream&) const;
     polynom operator+(polynom& p);

@@ -21,7 +21,7 @@ public:
     friend ostream& operator<<(ostream&, const func&);
     func& operator<<(const int& x);
     func();
-    func(func& f);
+    func(const func& f);
     virtual int f(const int& x) = 0;
 };
 

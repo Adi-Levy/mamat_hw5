@@ -9,7 +9,7 @@ polynom::polynom(int order, int* coefs) : func(), n_(order) {
     }
 }
 
-polynom::polynom(polynom& p) : func(p), n_(p.n_) {
+polynom::polynom(const polynom& p) : func(p), n_(p.n_) {
     coefs_ = new int[p.n_ + 1];
     for (int i = 0; i <= p.n_; ++i) {
         coefs_[i] = p.coefs_[i];
@@ -32,7 +32,7 @@ polynom polynom::operator+(polynom& p) {
         if (i <= n_)
             new_coefs[i] += coefs_[i];
     }
-    polynom& r_p = polynom(deg, new_coefs);
+    polynom r_p = polynom(deg, new_coefs);
     delete[] new_coefs;
     return r_p;
 }
@@ -49,7 +49,7 @@ polynom polynom::operator-(polynom& p) {
         if (i <= n_)
             new_coefs[i] += coefs_[i];
     }
-    polynom& r_p = polynom(deg, new_coefs);
+    polynom r_p = polynom(deg, new_coefs);
     delete[] new_coefs;
     return r_p;
 }
@@ -65,7 +65,7 @@ polynom polynom::operator*(polynom& p) {
             new_coefs[i + j] += coefs_[i] * p.coefs_[j];
         }
     }
-    polynom& r_p = polynom(deg, new_coefs);
+    polynom r_p = polynom(deg, new_coefs);
     delete[] new_coefs;
     return r_p;
 }
@@ -93,7 +93,7 @@ polynom polynom::Derivative() const {
         new_coefs = new int[1];
         new_coefs[0] = 0;
     }
-    polynom& r_p = polynom(deg, new_coefs);
+    polynom r_p = polynom(deg, new_coefs);
     delete[] new_coefs;
     return r_p;
 }
@@ -105,7 +105,7 @@ polynom polynom::Integral() const {
     for (int i = 1; i <= deg; ++i) {
         new_coefs[i] = coefs_[i - 1] / i;
     }
-    polynom& r_p = polynom(deg, new_coefs);
+    polynom r_p = polynom(deg, new_coefs);
     delete[] new_coefs;
     return r_p;
 }
