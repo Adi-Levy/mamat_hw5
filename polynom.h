@@ -15,13 +15,13 @@ public:
     polynom operator+(polynom& p);
     polynom operator-(polynom& p);
     polynom operator*(polynom& p);
-    polynom& Derivative() const;
-    polynom& Integral() const;
+    polynom Derivative() const;
+    polynom Integral() const;
+    virtual int f(const int& x);
 
 protected:
     int n_; //order of the polynom
     int* coefs_; //coefficients
-    virtual int f(const int& x);
     virtual void print(ostream& os) const;
 };
 

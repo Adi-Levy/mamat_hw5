@@ -1,4 +1,5 @@
 #include <math.h> 
+#include <string>
 #include "polynom.h"
 
 polynom::polynom(int order, int* coefs) : func(), n_(order) {
@@ -77,7 +78,7 @@ int polynom::f(const int& x) {
     return value;
 }
 
-polynom& polynom::Derivative() const {
+polynom polynom::Derivative() const {
     int deg = n_ - 1;
     int* new_coefs = new int[deg + 1];
     for (int i = 0; i <= deg; ++i) {
@@ -88,7 +89,7 @@ polynom& polynom::Derivative() const {
     return r_p;
 }
 
-polynom& polynom::Integral() const {
+polynom polynom::Integral() const {
     int deg = n_ + 1;
     int* new_coefs = new int[deg + 1];
     new_coefs[0] = 0;
