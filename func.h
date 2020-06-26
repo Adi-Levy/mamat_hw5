@@ -23,7 +23,7 @@ public:
     func();
     func(const func& f);
     virtual int f(const int& x) = 0;
-    virtual ~func()
+    virtual ~func();
 };
 
 
