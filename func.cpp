@@ -1,11 +1,14 @@
 #include <math.h>
 #include <vector>
+#include <algorithm>
 #include "func.h"
 
 
 
-func::func() : maxVal_(), minVal_() {
-    map<int, int> fmap_;
+func::func() : maxVal_(0), minVal_(0) {}
+
+func::func(func& f) : maxVal_(f.maxVal_), minVal_(f.minVal_) {
+    fmap_ = f.fmap_;
 }
 
 void func::plot(ostream& os) const {
@@ -14,11 +17,12 @@ void func::plot(ostream& os) const {
     
     sortImage.clear();
     for ( auto it : fmap_){
-        //complete code here: insert the image of the function into sortImage
         sortImage.push_back(it.second);
     }
-    //complete code here: sort sortImage
-    //complete code here: flip sortImage (reverse)
+    // sort sortImage
+    std::sort(sortImage.begin(), sortImage.end());
+    // flip sortImage (reverse)
+    std::reverse(sortImage.begin(), sortImage.end());
   
     for ( auto it_im = sortImage.begin();
        it_im != sortImage.end(); ++it_im) {
@@ -41,7 +45,7 @@ void func::plot(ostream& os) const {
 	            os<<"  "<<*it_im;
         
         // print function point
-        for (auto it_dom : fmap_/*complete code here: loop over map*/) {
+        for (auto it_dom : fmap_) {
             if(it_dom.second == *it_im){
 	            int x=it_dom.first;
 	            int spaces= x-x_anchor;
@@ -91,12 +95,23 @@ func& func::operator<<(const int& x) {
     p.first = x;
     p.second = f(x);
     fmap_.insert(p);
-    if (fmap_.at(x) == p.second) {
-        if(minVal_
+    if (fmap_.size() == 1) {
+        maxVal_ = minVal_ = x;
+    }
+    else {
+        // if we entered a new value to fmap_ update nim and max val
+        if (fmap_.at(x) == p.second) {
+            if (x < minVal_)
+                minVal_ = x;
+            else if (x > maxVal_)
+                maxVal_ = x;
+        }
     }
     return *this;
 }
 
 ostream& operator<<(ostream& os, const func& f) {
-    
+    f.print(os);
+    f.plot(os);
+    return os;
 }
