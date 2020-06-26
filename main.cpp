@@ -38,7 +38,7 @@ int main() {
       coefs= new int[order+1];
     
       for(auto i=0; i<=order && token; i++) {
-	coefs[i] = atof(token);
+	coefs[i] = atoi(token);
 	token = strtok(NULL, ",");
 
       }

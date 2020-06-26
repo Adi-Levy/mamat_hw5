@@ -79,10 +79,19 @@ int polynom::f(const int& x) {
 }
 
 polynom polynom::Derivative() const {
-    int deg = n_ - 1;
-    int* new_coefs = new int[deg + 1];
-    for (int i = 0; i <= deg; ++i) {
-        new_coefs[i] = coefs_[i + 1] * (i + 1);
+    int deg;
+    int* new_coefs = nullptr;
+    if (n_ > 0) {
+        deg = n_ - 1;
+        new_coefs = new int[deg + 1];
+        for (int i = 0; i <= deg; ++i) {
+            new_coefs[i] = coefs_[i + 1] * (i + 1);
+        }
+    }
+    else {
+        deg = n_;
+        new_coefs = new int[1];
+        new_coefs[0] = 0;
     }
     polynom r_p = polynom(deg, new_coefs);
     delete[] new_coefs;
