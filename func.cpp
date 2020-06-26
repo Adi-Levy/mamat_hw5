@@ -11,6 +11,8 @@ func::func(const func& f) : maxVal_(f.maxVal_), minVal_(f.minVal_) {
     fmap_ = f.fmap_;
 }
 
+func::~func() {}
+
 void func::plot(ostream& os) const {
  
     std::vector<int> sortImage;
