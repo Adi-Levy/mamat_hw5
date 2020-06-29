@@ -3,10 +3,11 @@
 #include "polynom.h"
 
 /*
- Function: ClusterCreate
- Abstract: creates a new cluster of points
- Parameters: dim - int, the dimension of all points in the cluster
- Return: pointer to the new cluster with no points in it
+ Function: polynom C'tor
+ Abstract: creates a new polynom object.
+ Parameters: order - the polynom order
+             coefs - pointer to coefs array
+ Return: a new polynom object.
  */
 polynom::polynom(int order, int* coefs) : func(), n_(order) {
     coefs_ = new int[order + 1];
@@ -16,10 +17,10 @@ polynom::polynom(int order, int* coefs) : func(), n_(order) {
 }
 
 /*
- Function: ClusterCreate
- Abstract: creates a new cluster of points
- Parameters: dim - int, the dimension of all points in the cluster
- Return: pointer to the new cluster with no points in it
+ Function: polynom copyC'tor
+ Abstract: creates a new polynom based on a given one
+ Parameters: polynom - a polynom to copy into the new polynom
+ Return: new polynom object
  */
 polynom::polynom(const polynom& p) : func(p), n_(p.n_) {
     coefs_ = new int[p.n_ + 1];
@@ -29,20 +30,20 @@ polynom::polynom(const polynom& p) : func(p), n_(p.n_) {
 }
 
 /*
- Function: ClusterCreate
- Abstract: creates a new cluster of points
- Parameters: dim - int, the dimension of all points in the cluster
- Return: pointer to the new cluster with no points in it
+ Function: polynom D'tor
+ Abstract: frees polynom coefs and removes from memory
+ Parameters: N/A
+ Return: N/A
  */
 polynom::~polynom() {
     delete[] coefs_;
 }
 
 /*
- Function: ClusterCreate
- Abstract: creates a new cluster of points
- Parameters: dim - int, the dimension of all points in the cluster
- Return: pointer to the new cluster with no points in it
+ Function: operator+
+ Abstract: overloaded operator that adds the option to get the sum of 2 polynoms
+ Parameters: polynom - a polynom to add to the curr polynom
+ Return: polynom object
  */
 polynom polynom::operator+(polynom& p) {
     // find the larger coefs array and work by it's size
