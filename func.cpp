@@ -3,16 +3,40 @@
 #include <algorithm>
 #include "func.h"
 
-
-
+/*
+ Function: func C'tor
+ Abstract: creates a new function with an empty map and sets the default
+            min and max values of x currently in the function.
+ Parameters: N/A
+ Return: new function object
+ */
 func::func() : maxVal_(0), minVal_(0) {}
 
+/*
+ Function: func copyC'tor
+ Abstract: creates a new function based on the one givven to it
+ Parameters: f - a function to copy into the new function
+ Return: new function object
+ */
 func::func(const func& f) : maxVal_(f.maxVal_), minVal_(f.minVal_) {
     fmap_ = f.fmap_;
 }
 
+/*
+ Function: func D'tor
+ Abstract: frees func resources and removes from memory
+ Parameters: N/A
+ Return: N/A
+ */
 func::~func() {}
 
+/*
+ Function: plot
+ Abstract: plots the points in the function map into the given 
+            ostream object
+ Parameters: os - an ostream object to write the plot to
+ Return: N/A
+ */
 void func::plot(ostream& os) const {
  
     std::vector<int> sortImage;
@@ -21,6 +45,7 @@ void func::plot(ostream& os) const {
     for ( auto it : fmap_){
         sortImage.push_back(it.second);
     }
+    // plot only if there are points in the map
     if (sortImage.size() > 0) {
         // sort sortImage
         std::sort(sortImage.begin(), sortImage.end());
@@ -95,11 +120,20 @@ void func::plot(ostream& os) const {
     }
 }
 
+/*
+ Function: operator<<
+ Abstract: overloaded operator that acts as a method to input data point
+            pairs (x,f(x)) into the function.
+ Parameters: x - an int location on x axis to add to the function.
+                    method calcs the y part of the point on it's own.
+ Return: func object (self by refrence)
+ */
 func& func::operator<<(const int& x) {
     std::pair<int, int> p;
     p.first = x;
     p.second = f(x);
     fmap_.insert(p);
+    // if this is the first point added
     if (fmap_.size() == 1) {
         maxVal_ = minVal_ = x;
     }
@@ -115,6 +149,14 @@ func& func::operator<<(const int& x) {
     return *this;
 }
 
+/*
+ Function: operator<<
+ Abstract: overloaded ostream operator. adds the option of inserting 
+            a func object into the ostream.
+ Parameters: os - the os by reference to be added to.
+             f - the function to push to the ostream.
+ Return: ostream object by refrence with the added func print data.
+ */
 ostream& operator<<(ostream& os, const func& f) {
     f.print(os);
     f.plot(os);
