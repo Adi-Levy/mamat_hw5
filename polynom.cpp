@@ -32,8 +32,20 @@ polynom polynom::operator+(polynom& p) {
         if (i <= n_)
             new_coefs[i] += coefs_[i];
     }
-    polynom r_p = polynom(deg, new_coefs);
+    // resize coefs_
+    for (int i = deg; i >= 0; --i) {
+        deg = i;
+        if (new_coefs[i] != 0) {
+            break;
+        }
+    }
+    int* proper_coef = new int[deg + 1];
+    for (int i = deg; i >= 0; --i) {
+        proper_coef[i] = new_coefs[i];
+    }
     delete[] new_coefs;
+    polynom r_p = polynom(deg, proper_coef);
+    delete[] proper_coef;
     return r_p;
 }
 
@@ -49,8 +61,20 @@ polynom polynom::operator-(polynom& p) {
         if (i <= n_)
             new_coefs[i] += coefs_[i];
     }
-    polynom r_p = polynom(deg, new_coefs);
+    // resize coefs_
+    for (int i = deg; i >= 0; --i) {
+        deg = i;
+        if (new_coefs[i] != 0) {
+            break;
+        }
+    }
+    int* proper_coef = new int[deg + 1];
+    for (int i = deg; i >= 0; --i) {
+        proper_coef[i] = new_coefs[i];
+    }
     delete[] new_coefs;
+    polynom r_p = polynom(deg, proper_coef);
+    delete[] proper_coef;
     return r_p;
 }
 
@@ -65,8 +89,20 @@ polynom polynom::operator*(polynom& p) {
             new_coefs[i + j] += coefs_[i] * p.coefs_[j];
         }
     }
-    polynom r_p = polynom(deg, new_coefs);
+    // resize coefs_
+    for (int i = deg; i >= 0; --i) {
+        deg = i;
+        if (new_coefs[i] != 0) {
+            break;
+        }
+    }
+    int* proper_coef = new int[deg + 1];
+    for (int i = deg; i >= 0; --i) {
+        proper_coef[i] = new_coefs[i];
+    }
     delete[] new_coefs;
+    polynom r_p = polynom(deg, proper_coef);
+    delete[] proper_coef;
     return r_p;
 }
 
@@ -99,6 +135,8 @@ polynom polynom::Derivative() const {
 }
 
 polynom polynom::Integral() const {
+    if (n_ == 0 && coefs_[0] == 0)
+        return polynom(*this);
     int deg = n_ + 1;
     int* new_coefs = new int[deg + 1];
     new_coefs[0] = 0;
@@ -156,6 +194,13 @@ void polynom::print(ostream& os) const {
     d.printcoefs(os);
     os << endl;
     os << "Integral: ";
-    in.printcoefs(os);
-    os << "+C" << endl;
+    if (in.n_ == 0 && in.coefs_[0] == 0) {
+        os << "C" << endl;
+    }
+    else {
+        in.printcoefs(os);
+        os << "+";
+        os << "C" << endl;
+    }
+    
 }
