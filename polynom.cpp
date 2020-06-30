@@ -41,9 +41,9 @@ polynom::~polynom() {
 
 /*
  Function: operator+
- Abstract: overloaded operator that adds the option to get the sum of 2 polynoms
- Parameters: polynom - a polynom to add to the curr polynom
- Return: polynom object
+ Abstract: overloaded operator that sums 2 polynoms
+ Parameters: polynom - a polynom to add to the current polynom
+ Return: a new polynom object (the result)
  */
 polynom polynom::operator+(polynom& p) {
     // find the larger coefs array and work by it's size
@@ -78,10 +78,10 @@ polynom polynom::operator+(polynom& p) {
 }
 
 /*
- Function: ClusterCreate
- Abstract: creates a new cluster of points
- Parameters: dim - int, the dimension of all points in the cluster
- Return: pointer to the new cluster with no points in it
+ Function: operator-
+ Abstract: overloaded operator that subtracts 2 polynoms
+ Parameters: polynom - a polynom to subtract from the current polynom
+ Return: a new polynom object (the result)
  */
 polynom polynom::operator-(polynom& p) {
     // find the larger coefs array and work by it's size
@@ -116,10 +116,10 @@ polynom polynom::operator-(polynom& p) {
 }
 
 /*
- Function: ClusterCreate
- Abstract: creates a new cluster of points
- Parameters: dim - int, the dimension of all points in the cluster
- Return: pointer to the new cluster with no points in it
+ Function: operator*
+ Abstract: overloaded operator that multiplies 2 polynoms
+ Parameters: polynom - a polynom to multiply by the current polynom
+ Return: a new polynom object (the result)
  */
 polynom polynom::operator*(polynom& p) {
     // add degs when multiplying
@@ -153,10 +153,10 @@ polynom polynom::operator*(polynom& p) {
 }
 
 /*
- Function: ClusterCreate
- Abstract: creates a new cluster of points
- Parameters: dim - int, the dimension of all points in the cluster
- Return: pointer to the new cluster with no points in it
+ Function: f (evaluator)
+ Abstract: evaluates the polynom y value for the givven x
+ Parameters: x - int, the x coordinate for the point calc
+ Return: int, the y coordinate for the point.
  */
 int polynom::f(const int& x) {
     int value = 0;
@@ -167,10 +167,10 @@ int polynom::f(const int& x) {
 }
 
 /*
- Function: ClusterCreate
- Abstract: creates a new cluster of points
- Parameters: dim - int, the dimension of all points in the cluster
- Return: pointer to the new cluster with no points in it
+ Function: Derivative
+ Abstract: get's the derivative of the current polynom
+ Parameters: N/A
+ Return: a new polynom object that is the derivative of the current polynom
  */
 polynom polynom::Derivative() const {
     int deg;
@@ -195,10 +195,11 @@ polynom polynom::Derivative() const {
 }
 
 /*
- Function: ClusterCreate
- Abstract: creates a new cluster of points
- Parameters: dim - int, the dimension of all points in the cluster
- Return: pointer to the new cluster with no points in it
+ Function: Integral
+ Abstract: integrate the current polynom
+ Parameters: N/A
+ Return: a new polynom object that is the integral of the current polynom
+ 
  */
 polynom polynom::Integral() const {
     // if the zero polynom return the zero polynom and C will be written at print
@@ -216,10 +217,11 @@ polynom polynom::Integral() const {
 }
 
 /*
- Function: ClusterCreate
- Abstract: creates a new cluster of points
- Parameters: dim - int, the dimension of all points in the cluster
- Return: pointer to the new cluster with no points in it
+ Function: printcoefs
+ Abstract: pushes the polynom full print (An x^n + ... + A1 x + A0) 
+            into the ostream.
+ Parameters: os - the ostream object to add to
+ Return: N/A
  */
 void polynom::printcoefs(ostream& os)  const {
     int allZero = 1;
@@ -259,10 +261,11 @@ void polynom::printcoefs(ostream& os)  const {
 }
 
 /*
- Function: ClusterCreate
- Abstract: creates a new cluster of points
- Parameters: dim - int, the dimension of all points in the cluster
- Return: pointer to the new cluster with no points in it
+ Function: print
+ Abstract: pushes the specific print data for printing the polynom to the 
+            ostream (implementation of abstract method from inherited class)
+ Parameters: os - the ostream object to add to
+ Return: N/A
  */
 void polynom::print(ostream& os) const {
     polynom d = this->Derivative();
